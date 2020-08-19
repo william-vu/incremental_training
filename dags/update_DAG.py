@@ -1,4 +1,3 @@
-
 import airflow
 
 from airflow.models import DAG
@@ -8,8 +7,7 @@ from src.data.data_functions import get_data_from_kafka, load_data
 from src.models.update_functions import load_current_model, update_model, data_to_archive
 from src.preprocessing.preprocessing_functions import preprocessing
 
-CLIENT = 'kafka:9092'
-TOPIC = 'TopicA'
+from config import CLIENT, TOPIC
 
 PATH_NEW_DATA = '/data/to_use_for_model_update/'
 PATH_USED_DATA = '/data/used_for_model_update/'

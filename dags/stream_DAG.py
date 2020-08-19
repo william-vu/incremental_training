@@ -5,8 +5,7 @@ from airflow.models import DAG
 from airflow.operators.python_operator import PythonOperator
 
 from src.data.kafka_producer import generate_stream
-
-PATH_STREAM_SAMPLE = "/data/stream_sample.p"
+from config import TOPIC, PATH_STREAM_SAMPLE
 
 args = {
     'owner': 'airflow',
@@ -25,7 +24,7 @@ dag = DAG(
 task1 = PythonOperator(
     task_id='generate_stream',
     python_callable=generate_stream,        # function to be executed
-    op_kwargs={'path_stream_sample': PATH_STREAM_SAMPLE},        # input arguments
+    op_kwargs={'path_stream_sample': PATH_STREAM_SAMPLE, 'topic':TOPIC},        # input arguments
     dag=dag,
 )
 

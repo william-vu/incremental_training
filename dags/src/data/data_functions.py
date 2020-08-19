@@ -15,14 +15,14 @@ def decode_json(jsons_comb):
     return x_train, y_train
 
 def get_data_from_kafka(**kwargs):
-
+    logging.info("Reading from {0}".format(kwargs['topic']))
     consumer = KafkaConsumer(
         kwargs['topic'],                                # specify topic to consume from
         bootstrap_servers=[kwargs['client']],
-        consumer_timeout_ms=3000,                       # break connection if the consumer has fetched anything for 3 secs (e.g. in case of an empty topic)
+        consumer_timeout_ms=10000,                       # break connection if the consumer has fetched anything for 3 secs (e.g. in case of an empty topic)
         auto_offset_reset='earliest',                   # automatically reset the offset to the earliest offset (should the current offset be deleted or anything)
         enable_auto_commit=True,                        # offsets are committed automatically by the consumer
-        #group_id='my-group',
+        group_id='williamtest2',
         value_deserializer=lambda x: loads(x.decode('utf-8')))
 
 
@@ -35,7 +35,7 @@ def get_data_from_kafka(**kwargs):
 
         for message in consumer:                            # loop over messages
 
-            logging.info( "Offset: ", message.offset)
+            logging.info( "Offset: {0}".format( message.offset))
             message = message.value
             x, y = decode_json(message)            # decode JSON
 
@@ -76,6 +76,3 @@ def load_data(**kwargs):
 
         else:
             logging.info('no data found')
-
-
-

@@ -6,6 +6,7 @@ import logging
 from time import sleep
 from json import dumps
 
+from config import *
 
 def encode_to_json(x_train, y_train):
 	x = dumps(x_train.tolist())
@@ -26,11 +27,11 @@ def generate_stream(**kwargs):
 	x_new = stream_sample[0]
 	y_new = stream_sample[1]
 
-	logging.info('Partitions: ', producer.partitions_for('TopicA'))
+	logging.info('Topic: {0}'.format(kwargs['topic']))
 
 	for i in rand:
 		json_comb = encode_to_json(x_new[i], y_new[i])                                         # pick observation and encode to JSON
-		producer.send('TopicA', value=json_comb)                                               # send encoded observation to Kafka topic
+		producer.send(kwargs['topic'], value=json_comb)                                               # send encoded observation to Kafka topic
 		logging.info("Sent number: {}".format(y_new[i]))
 		sleep(1)
 

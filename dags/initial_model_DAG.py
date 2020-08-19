@@ -4,14 +4,7 @@ from airflow.models import DAG
 from airflow.operators.python_operator import PythonOperator
 
 from src.models.initial_model_functions import load_preprocess, fit_model
-
-PATH_STREAM_SAMPLE = "/data/stream_sample.p"
-PATH_TEST_SET = "/data/test_set.p"
-INITIAL_MODEL_PATH = "/models/current_model/initial_model.H5"
-
-BATCH_SIZE = 128
-NUM_CLASSES = 10
-EPOCHS = 4
+from config import *
 
 args = {
     'owner': 'airflow',
