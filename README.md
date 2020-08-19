@@ -5,4 +5,4 @@ It shows how to use  [Kafka](https://github.com/apache/kafka), [Airflow](https:/
 
 The orignial medium post is [here](https://medium.com/vantageai/keeping-your-ml-model-in-shape-with-kafka-airflow-and-mlflow-143d20024ba6) 
 
-It simulates the (new) incoming data  by replaying/writing (MNIST) images to a predefined Kafka topic. One consumer reads data from this topic and uses this data to update model. 
+The original repo is for MNIST dataset. I adapt it to timeseries data. 
